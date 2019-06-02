@@ -30,6 +30,9 @@ void MQTT_connection_manager(){
       Serial.println(F("[MQTT] Connected"));
       Serial.println(F("[MQTT] Subscribing to topics"));
       MQTT_client.subscribe(MQTT_AC_COMMAND_TOPIC);
+
+      Serial.println(F("[MQTT] sending AC state update"));
+      MQTT_publish_AC_state();
     }
   }
 }
@@ -49,22 +52,31 @@ void MQTT_message_callback(char* topic, byte* payload, unsigned int length) {
   if( strcmp(command_state, "OFF")==0 || strcmp(command_state, "off")==0 ) {
     Serial.println(F("[IR] Turning AC and HEATING OFF"));
     IR_send_signal(IR_signal_off);
+    AC_state = command_state;
+    MQTT_publish_AC_state();
   }
   else if(strcmp(command_state, "ac_on")==0) {
     Serial.println(F("[IR] Turning HEATER ON and AC OFF"));
     IR_send_signal(IR_signal_heater_on);
+    AC_state = command_state;
+    MQTT_publish_AC_state();
   }
   else if(strcmp(command_state, "heater_on")==0) {
     Serial.println(F("[IR] Turning AC ON and HEATER OFF"));
     IR_send_signal(IR_signal_cooler_on);
+    AC_state = command_state;
+    MQTT_publish_AC_state();
   }
 
-  // response
+  
+
+}
+
+void MQTT_publish_AC_state(){
   StaticJsonDocument<200> outbound_JSON_message;
-  outbound_JSON_message["state"] = command_state;
+  outbound_JSON_message["state"] = AC_state;
   char JSONmessageBuffer[100];
   serializeJson(outbound_JSON_message, JSONmessageBuffer, sizeof(JSONmessageBuffer));
-  Serial.println(F("[MQTT] publish of state"));
+  Serial.println(F("[MQTT] publish AC state"));
   MQTT_client.publish(MQTT_AC_STATUS_TOPIC, JSONmessageBuffer, MQTT_RETAIN);
-
 }
