@@ -76,7 +76,7 @@ void read_PIR(){
     serializeJson(outbound_JSON_message, JSONmessageBuffer, sizeof(JSONmessageBuffer));
 
     // Send the char array
-    Serial.println(F("[MQTT] publish of motion detector state"));
+    //Serial.println(F("[MQTT] publish of motion detector state"));
     MQTT_client.publish(MQTT_MOTION_STATUS_TOPIC, JSONmessageBuffer, MQTT_RETAIN);
     
   }

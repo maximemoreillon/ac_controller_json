@@ -27,7 +27,6 @@
 // MQTT
 #define MQTT_BROKER_ADDRESS IPAddress(192, 168, 1, 2)
 #define MQTT_PORT 1883
-#define MQTT_LAST_WILL "{\"state\":\"disconnected\"}"
 #define MQTT_QOS 1
 #define MQTT_RETAIN true
 

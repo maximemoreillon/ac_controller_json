@@ -1,35 +1,25 @@
 // Head partials
 // Style
 const String styles = "<style>"
-  ".status{"
-  "width: 35vmin;"
-  "height: 35vmin;"
-  "border-radius: 50%;"
-  "border: 10px solid #ce0000;"
-  "padding: 5px;"
-  "background: white;"
-  "background-clip: content-box;"
-  "transition: background-color 0.5s;"
-  "}"
+  "body{}"
+  "nav a:not(:last-child) {margin-right: 0.5em;}"
+  "footer {margin-top: 1em;}"
   "</style>";
 
 // Body partials
-const String header = "<div class='header'>"
+const String header = "<header>"
   + String(HOSTNAME) +
-  "</div>";
+  "</header>";
 
-const String nav = "<div class='nav'>"
+const String nav = "<nav>"
   "<a href='/'>Status</a>"
   "<a href='/update_form'>Firmware update</a>"
-  "</div>";
+  "</nav>";
   
-const String footer= "<div class='footer'>"
-  "<img src='https://maximemoreillon.com/images/logo/logo.png'>"
-  "  <div>"
-  "    <div>Scale firmware v2.0</div>"
-  "    <div>Maxime Moreillon</div>"
-  "  </div>"
-  "</div>";
+const String footer= "<footer>"
+  "  <div>Air conditioner controller firmware v0.2</div>"
+  "  <div>Maxime Moreillon</div>"
+  "</footer>";
 
 // Update form
 String update_form = "<h2>Firmware update</h2>"

@@ -19,7 +19,20 @@ void MQTT_connection_manager(){
         
     if(millis() - last_MQTT_connection_attempt > 1000){
       last_MQTT_connection_attempt = millis();
-      MQTT_client.connect(HOSTNAME, MQTT_USERNAME, MQTT_PASSWORD, MQTT_AC_STATUS_TOPIC, MQTT_QOS, MQTT_RETAIN, MQTT_LAST_WILL);
+
+      // Prepare a last will
+      StaticJsonDocument<200> outbound_JSON_message;
+      outbound_JSON_message["state"] = "disconnected";
+      char last_will[100];
+      serializeJson(outbound_JSON_message, last_will, sizeof(last_will));
+      
+      MQTT_client.connect(
+        HOSTNAME, MQTT_USERNAME, 
+        MQTT_PASSWORD, 
+        MQTT_AC_STATUS_TOPIC, 
+        MQTT_QOS, 
+        MQTT_RETAIN, 
+        last_will);
     }
         
   } else {
