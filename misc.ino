@@ -16,18 +16,20 @@ void read_DHT(){
     float t = dht.readTemperature();
 
     if (isnan(h) || isnan(t)) {
-      Serial.println(F("[DHT] reading error"));
+      //Serial.println(F("[DHT] reading error"));
+      return;
     }
-    else {
-      Serial.print(F("[DHT] reading successsful: "));
-      Serial.print(t);
-      Serial.print(" C, ");
-      Serial.print(h);
-      Serial.println(" %");
-      
-      DHT_temperature = t;
-      DHT_humidity = h;
-    }
+    
+    /*
+    Serial.print(F("[DHT] reading successsful: "));
+    Serial.print(t);
+    Serial.print(" C, ");
+    Serial.print(h);
+    Serial.println(" %");
+    */
+    
+    DHT_temperature = t;
+    DHT_humidity = h;
   }
 
   // Send MQTT value periodically
@@ -47,7 +49,7 @@ void read_DHT(){
       serializeJson(outbound_JSON_message, JSONmessageBuffer, sizeof(JSONmessageBuffer));
   
       // Send the char array
-      Serial.println(F("[MQTT] publish of DHT measurement"));
+      //Serial.println(F("[MQTT] publish of DHT measurement"));
       MQTT_client.publish(MQTT_DHT_STATUS_TOPIC, JSONmessageBuffer, MQTT_RETAIN);
     }
   }

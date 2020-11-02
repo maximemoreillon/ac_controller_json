@@ -17,7 +17,7 @@ const String nav = "<nav>"
   "</nav>";
   
 const String footer= "<footer>"
-  "  <div>Air conditioner controller firmware v0.2</div>"
+  "  <div>Air conditioner controller firmware v0.3</div>"
   "  <div>Maxime Moreillon</div>"
   "</footer>";
 
@@ -33,7 +33,6 @@ String head ="<head>"
   "<title>" + String(HOSTNAME) +"</title>"
   + styles +
   "<meta name='viewport' content='width=device-width, initial-scale=1.0'>"
-  "<link rel='stylesheet' type='text/css' href='http://maximemoreillon.com/web_components/master_css/master.css'>"
   "</head>";
 
 String pre_main = "<html>"
